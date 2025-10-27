@@ -1,38 +1,207 @@
-.App {
-  text-align: center;
+/* Estilos personalizados para Huerto Hogar */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Estilos para hover en tarjetas */
+.hover-shadow {
+  transition: box-shadow 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.hover-shadow:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Estilos para transiciones */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Estilos para el menú de usuario */
+.hover-success:hover {
+  color: #198754 !important;
+}
+
+.hover-danger:hover {
+  color: #dc3545 !important;
+}
+
+/* Estilos para el hero section */
+.hero-section {
+  background: linear-gradient(135deg, #198754 0%, #28a745 100%);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para botones */
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #146c43;
+}
+
+/* Estilos para tarjetas de productos */
+.card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Estilos para el footer */
+footer {
+  margin-top: auto;
+}
+
+/* Estilos para el navbar */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Estilos para formularios */
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+.form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Estilos para badges */
+.badge {
+  font-size: 0.75em;
+}
+
+/* Estilos para alertas */
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* Estilos para el grid de productos */
+.product-grid .card {
+  border: none;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+}
+
+/* Estilos para el spinner */
+.spinner-border {
+  color: #198754;
+}
+
+/* Estilos para el overlay del menú */
+.position-fixed {
+  z-index: 1040;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .d-flex.gap-3 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-collapse {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Estilos para el contador del carrito */
+.cart-count {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+/* Estilos para el menú de usuario */
+.user-menu {
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 1050;
+  display: none;
+}
+
+.user-dropdown.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #198754;
+}
+
+/* Estilos para las notificaciones */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1060;
+  max-width: 400px;
+}
+
+/* Estilos para el layout */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.flex-grow-1 {
+  flex: 1;
 }

@@ -9,7 +9,7 @@ interface AuthContextType {
   login: (credentials: LoginRequest) => Promise<void>;
   register: (userData: RegisterRequest) => Promise<void>;
   logout: () => void;
-  updateProfile: (userData: Partial<User>) => Promise<void>;
+  updateProfile: (userData: Partial<User>) => Promise<User>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const updateProfile = async (userData: Partial<User>) => {
+  const updateProfile = async (userData: Partial<User>): Promise<User> => {
     if (!user) throw new Error('No user logged in');
 
     try {
@@ -89,6 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Actualizar usuario en localStorage y estado
       localStorage.setItem('huertohogar_currentUser', JSON.stringify(updatedUser));
       setUser(updatedUser);
+      return updatedUser;
     } catch (error) {
       console.error('Update profile error:', error);
       throw error;

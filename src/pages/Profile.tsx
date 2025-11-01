@@ -92,19 +92,19 @@ const Profile: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      await updateProfile({
+      const updatedUser = await updateProfile({
         name: editForm.name,
         email: editForm.email,
         phoneNumber: editForm.phoneNumber,
         address: editForm.address
       });
 
-      setUserProfile(prev => prev ? { ...prev, ...editForm } : null);
+      setUserProfile(updatedUser);
       setIsEditing(false);
       showNotification('Perfil actualizado exitosamente', 'success');
     } catch (error) {
       console.error('Error updating profile:', error);
-      showNotification('Error al actualizar el perfil', 'error');
+      showNotification('Error al actualizar el perfil. El correo electrónico podría estar en uso.', 'error');
     }
   };
 
@@ -156,33 +156,33 @@ const Profile: React.FC = () => {
       {/* Navigation Tabs */}
       <Row className="justify-content-center mb-4">
         <Col lg={10}>
-          <Nav variant="tabs" className="justify-content-center">
+          <Nav variant="tabs" className="justify-content-center custom-nav-tabs">
             <Nav.Item>
-              <Nav.Link as={Link} to="/" className="d-flex align-items-center">
+              <Nav.Link as={Link} to="/" className="d-flex align-items-center custom-nav-link">
                 <FontAwesomeIcon icon={faHome} className="me-2" />
                 Inicio
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/productos" className="d-flex align-items-center">
+              <Nav.Link as={Link} to="/productos" className="d-flex align-items-center custom-nav-link">
                 <FontAwesomeIcon icon={faLeaf} className="me-2" />
                 Productos
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/carrito" className="d-flex align-items-center">
+              <Nav.Link as={Link} to="/carrito" className="d-flex align-items-center custom-nav-link">
                 <FontAwesomeIcon icon={faShoppingCart} className="me-2" />
                 Carrito
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/nosotros" className="d-flex align-items-center">
+              <Nav.Link as={Link} to="/nosotros" className="d-flex align-items-center custom-nav-link">
                 <FontAwesomeIcon icon={faInfoCircle} className="me-2" />
                 Nosotros
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/blog" className="d-flex align-items-center">
+              <Nav.Link as={Link} to="/blog" className="d-flex align-items-center custom-nav-link">
                 <FontAwesomeIcon icon={faBlog} className="me-2" />
                 Blog
               </Nav.Link>

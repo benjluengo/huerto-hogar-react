@@ -93,7 +93,9 @@ const Register: React.FC = () => {
       await register({
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
+        phoneNumber: formData.phone,
+        address: formData.address
       });
 
       showNotification('¡Cuenta creada exitosamente! Bienvenido a Huerto Hogar.', 'success');

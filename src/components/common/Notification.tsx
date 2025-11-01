@@ -51,8 +51,8 @@ const Notification: React.FC<NotificationProps> = ({
 
   return (
     <div
-      className="position-fixed top-0 end-0 p-3"
-      style={{ zIndex: 1050 }}
+      className="position-fixed end-0 p-3"
+      style={{ zIndex: 1050, top: '60px'}}
     >
       <Alert
         variant={getVariant()}

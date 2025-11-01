@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import Cart from './pages/Cart';
+import PurchaseSuccess from './pages/PurchaseSuccess';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/nosotros" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/perfil" element={<Profile />} />
+              <Route path="/compra-exitosa" element={<PurchaseSuccess />} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>

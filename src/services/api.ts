@@ -75,6 +75,7 @@ export interface OrderItem {
 }
 
 export interface Order {
+  id?: number;
   user: User;
   orderItems: OrderItem[];
   deliveryDate: string; // ISO date string
@@ -133,6 +134,11 @@ export const apiService = {
   // Órdenes
   createOrder: async (orderData: Order): Promise<Order> => {
     const response = await api.post(API_URLS.ORDERS, orderData);
+    return response.data;
+  },
+
+  getOrderById: async (orderId: string): Promise<Order> => {
+    const response = await api.get(`${API_URLS.ORDERS}/${orderId}`);
     return response.data;
   },
 

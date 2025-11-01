@@ -82,12 +82,12 @@ const Cart: React.FC = () => {
         status: 'PENDING',
       };
 
-      await apiService.createOrder(orderData);
+      const orderResponse = await apiService.createOrder(orderData);
 
       // Clear cart and show success
       clearCart();
       showNotification('¡Pedido realizado exitosamente!', 'success');
-      navigate('/perfil');
+      navigate(`/compra-exitosa?orderId=${orderResponse.id}`);
 
     } catch (error) {
       console.error('Error placing order:', error);

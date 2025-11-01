@@ -107,8 +107,8 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container className="py-5">
-      <Row className="justify-content-center">
+    <Container className="py-5 form-mobile-spacing">
+      <Row className="justify-content-center form-row-mobile">
         <Col lg={8}>
           <Card className="shadow border-0">
             <Card.Body className="p-4">

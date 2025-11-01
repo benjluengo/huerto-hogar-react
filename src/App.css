@@ -120,16 +120,22 @@ footer {
 @media (max-width: 768px) {
   .hero-section {
     text-align: center;
-    padding: 3rem 0;
+    padding: 2rem 0;
+    min-height: auto;
   }
 
   .hero-section h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
   }
 
   .d-flex.gap-3 {
     flex-direction: column;
     align-items: center;
+    gap: 1rem !important;
   }
 
   .navbar-collapse {
@@ -137,6 +143,61 @@ footer {
     padding: 1rem;
     border-radius: 0.5rem;
     margin-top: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+
+  /* Ajustes para notificaciones en móvil */
+  .notification-mobile {
+    left: 10px !important;
+    right: 10px !important;
+    top: 80px !important;
+    max-width: none !important;
+  }
+
+  /* Ajustes para contenedor de notificaciones */
+  .notification-container {
+    right: 15px;
+  }
+
+  @media (max-width: 576px) {
+    .notification-container {
+      left: 15px !important;
+      right: 15px !important;
+      top: 80px !important;
+    }
+
+    .notification-container .alert {
+      min-width: auto !important;
+      max-width: none !important;
+    }
+  }
+
+  /* Ajustes para tarjetas de productos en móvil */
+  .product-card-mobile {
+    margin-bottom: 1rem;
+  }
+
+  /* Ajustes para el carrito en móvil */
+  .cart-mobile-layout {
+    flex-direction: column;
+  }
+
+  .cart-summary-mobile {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+
+  /* Ajustes para formularios en móvil */
+  .form-mobile-spacing {
+    padding: 1rem;
+  }
+
+  .form-row-mobile {
+    flex-direction: column;
+  }
+
+  .form-row-mobile .col-md-6 {
+    margin-bottom: 1rem;
   }
 }
 

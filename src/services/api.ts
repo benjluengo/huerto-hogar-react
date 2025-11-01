@@ -131,6 +131,11 @@ export const apiService = {
     return response.data;
   },
 
+  updateUserProfile: async (id: string, userData: Partial<User>): Promise<User> => {
+    const response = await api.put(API_URLS.USER_PROFILE(id), userData);
+    return response.data;
+  },
+
   // Órdenes
   createOrder: async (orderData: Order): Promise<Order> => {
     const response = await api.post(API_URLS.ORDERS, orderData);

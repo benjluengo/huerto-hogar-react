@@ -9,6 +9,7 @@ interface AuthContextType {
   login: (credentials: LoginRequest) => Promise<void>;
   register: (userData: RegisterRequest) => Promise<void>;
   logout: () => void;
+  updateProfile: (userData: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -78,6 +79,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const updateProfile = async (userData: Partial<User>) => {
+    if (!user) throw new Error('No user logged in');
+
+    try {
+      setIsLoading(true);
+      const updatedUser = await apiService.updateUserProfile(user.id, userData);
+
+      // Actualizar usuario en localStorage y estado
+      localStorage.setItem('huertohogar_currentUser', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Update profile error:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('huertohogar_currentUser');
@@ -91,6 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     login,
     register,
     logout,
+    updateProfile,
   };
 
   return (

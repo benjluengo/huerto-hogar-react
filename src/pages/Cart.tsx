@@ -122,7 +122,7 @@ const Cart: React.FC = () => {
       <Container className="py-4">
         <h2 className="mb-4">Carrito de Compras</h2>
 
-        <Row>
+        <Row className="cart-mobile-layout">
           <Col lg={8}>
             <Card className="mb-4">
               <Card.Header>
@@ -191,7 +191,7 @@ const Cart: React.FC = () => {
           </Col>
 
           <Col lg={4}>
-            <Card className="mb-4">
+            <Card className="mb-4 cart-summary-mobile">
               <Card.Header>
                 <h5 className="mb-0">Resumen del Pedido</h5>
               </Card.Header>

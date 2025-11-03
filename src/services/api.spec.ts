@@ -172,7 +172,7 @@ describe('API Service', () => {
 
     it('should create order', async () => {
       const mockOrderData = {
-        user: { id: '1', name: 'Test User' },
+        user: { id: '1', name: 'Test User', email: 'test@example.com' },
         orderItems: [],
         deliveryDate: '2024-01-01',
         totalAmount: 100,
@@ -191,7 +191,7 @@ describe('API Service', () => {
     it('should get order by id', async () => {
       const mockOrder = {
         id: 1,
-        user: { id: '1', name: 'Test User' },
+        user: { id: '1', name: 'Test User', email: 'test@example.com' },
         orderItems: [],
         deliveryDate: '2024-01-01',
         totalAmount: 100,
@@ -210,7 +210,7 @@ describe('API Service', () => {
       const mockOrders = [
         {
           id: 1,
-          user: { id: '1', name: 'Test User' },
+          user: { id: '1', name: 'Test User', email: 'test@example.com' },
           orderItems: [],
           deliveryDate: '2024-01-01',
           totalAmount: 100,

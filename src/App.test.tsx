@@ -1,15 +1,23 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
 // Mock de hooks y contextos para configuración completa
 jest.mock('./hooks/useAuth', () => ({
   AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth-provider">{children}</div>,
+  useAuth: () => ({
+    user: null,
+    isAuthenticated: false,
+    logout: jest.fn(),
+  }),
 }));
 
 jest.mock('./hooks/useCart', () => ({
   CartProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="cart-provider">{children}</div>,
+  useCart: () => ({
+    totalItems: 0,
+  }),
 }));
 
 jest.mock('./components/common/NotificationProvider', () => ({
@@ -18,9 +26,9 @@ jest.mock('./components/common/NotificationProvider', () => ({
 
 test('renders App component with full configuration', () => {
   render(
-    <BrowserRouter>
+    <MemoryRouter>
       <App />
-    </BrowserRouter>
+    </MemoryRouter>
   );
 
   // Verificar que la aplicación se renderiza con todos los providers
@@ -32,9 +40,9 @@ test('renders App component with full configuration', () => {
 test('renders App without crashing', () => {
   expect(() => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <App />
-      </BrowserRouter>
+      </MemoryRouter>
     );
   }).not.toThrow();
 });

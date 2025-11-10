@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
 import { CartProvider } from './hooks/useCart';
 import { NotificationProvider } from './components/common/NotificationProvider';
@@ -22,21 +22,19 @@ function App() {
     <NotificationProvider>
       <AuthProvider>
         <CartProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/productos" element={<Products />} />
-              <Route path="/carrito" element={<Cart />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/registro" element={<Register />} />
-              <Route path="/nosotros" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/perfil" element={<Profile />} />
-              <Route path="/compra-exitosa" element={<PurchaseSuccess />} />
-              <Route path="/admin-login" element={<AdminLogin />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            </Routes>
-          </Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/productos" element={<Products />} />
+            <Route path="/carrito" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Register />} />
+            <Route path="/nosotros" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/perfil" element={<Profile />} />
+            <Route path="/compra-exitosa" element={<PurchaseSuccess />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          </Routes>
         </CartProvider>
       </AuthProvider>
     </NotificationProvider>

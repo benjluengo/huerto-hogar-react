@@ -3,10 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Notification from './Notification';
 
 describe('Notification Component', () => {
-  let mockOnClose: jasmine.Spy;
+  let mockOnClose: jest.Mock;
 
   beforeEach(() => {
-    mockOnClose = jasmine.createSpy('onClose');
+    mockOnClose = jest.fn();
   });
 
   afterEach(() => {
@@ -78,7 +78,7 @@ describe('Notification Component', () => {
   });
 
   it('should call onClose after default duration (3000ms)', async () => {
-    jasmine.clock().install();
+    jest.useFakeTimers();
 
     render(
       <Notification
@@ -90,17 +90,17 @@ describe('Notification Component', () => {
 
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jasmine.clock().tick(3000);
+    jest.advanceTimersByTime(3000);
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
     });
 
-    jasmine.clock().uninstall();
+    jest.useRealTimers();
   });
 
   it('should call onClose after custom duration', async () => {
-    jasmine.clock().install();
+    jest.useFakeTimers();
 
     render(
       <Notification
@@ -113,13 +113,13 @@ describe('Notification Component', () => {
 
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jasmine.clock().tick(1000);
+    jest.advanceTimersByTime(1000);
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
     });
 
-    jasmine.clock().uninstall();
+    jest.useRealTimers();
   });
 
   it('should have correct CSS classes for different types', () => {
@@ -169,7 +169,7 @@ describe('Notification Component', () => {
   });
 
   it('should clear timeout on unmount', () => {
-    jasmine.clock().install();
+    jest.useFakeTimers();
 
     const { unmount } = render(
       <Notification
@@ -182,11 +182,11 @@ describe('Notification Component', () => {
 
     unmount();
 
-    jasmine.clock().tick(1000);
+    jest.advanceTimersByTime(1000);
 
     // onClose should not be called after unmount
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jasmine.clock().uninstall();
+    jest.useRealTimers();
   });
 });

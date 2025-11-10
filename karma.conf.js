@@ -5,7 +5,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'karma-typescript'],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -16,33 +16,44 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      'node_modules'
+      'node_modules',
+      'node_modules/@testing-library/**',
+      'node_modules/react/**',
+      'node_modules/react-dom/**',
+      'node_modules/@types/**',
+      'node_modules/@testing-library/react/dist/index.js'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'src/**/*.spec.ts': ['karma-typescript'],
-      'src/**/*.spec.tsx': ['karma-typescript']
-    },
+    preprocessors: {},
 
     // karma-typescript configuration
     karmaTypescriptConfig: {
       tsconfig: './tsconfig.spec.json',
+      compilerOptions: {
+        module: 'commonjs',
+        skipLibCheck: true,
+        target: 'ES5'
+      },
       bundlerOptions: {
         transforms: [
           require('karma-typescript-es6-transform')()
+        ],
+        exclude: [
+          'node_modules/@testing-library/**',
+          'node_modules/react/**',
+          'node_modules/react-dom/**',
+          'node_modules/@types/**',
+          'node_modules/@testing-library/react/dist/index.js'
         ]
-      },
-      compilerOptions: {
-        module: 'commonjs'
       }
     },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'karma-typescript'],
+    reporters: ['progress'],
 
     // web server port
     port: 9876,

@@ -78,7 +78,7 @@ describe('Notification Component', () => {
   });
 
   it('should call onClose after default duration (3000ms)', async () => {
-    jest.useFakeTimers();
+    jasmine.clock().install();
 
     render(
       <Notification
@@ -90,17 +90,17 @@ describe('Notification Component', () => {
 
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jest.advanceTimersByTime(3000);
+    jasmine.clock().tick(3000);
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
     });
 
-    jest.useRealTimers();
+    jasmine.clock().uninstall();
   });
 
   it('should call onClose after custom duration', async () => {
-    jest.useFakeTimers();
+    jasmine.clock().install();
 
     render(
       <Notification
@@ -113,13 +113,13 @@ describe('Notification Component', () => {
 
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jest.advanceTimersByTime(1000);
+    jasmine.clock().tick(1000);
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
     });
 
-    jest.useRealTimers();
+    jasmine.clock().uninstall();
   });
 
   it('should have correct CSS classes for different types', () => {
@@ -169,7 +169,7 @@ describe('Notification Component', () => {
   });
 
   it('should clear timeout on unmount', () => {
-    jest.useFakeTimers();
+    jasmine.clock().install();
 
     const { unmount } = render(
       <Notification
@@ -182,11 +182,11 @@ describe('Notification Component', () => {
 
     unmount();
 
-    jest.advanceTimersByTime(1000);
+    jasmine.clock().tick(1000);
 
     // onClose should not be called after unmount
     expect(mockOnClose).not.toHaveBeenCalled();
 
-    jest.useRealTimers();
+    jasmine.clock().uninstall();
   });
 });

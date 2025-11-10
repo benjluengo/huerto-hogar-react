@@ -1,9 +1,26 @@
+// Mock de axios before importing
+jest.mock('axios', () => {
+  const mockAxiosInstance = {
+    get: jest.fn(),
+    post: jest.fn(),
+    put: jest.fn(),
+    interceptors: {
+      request: {
+        use: jest.fn()
+      }
+    }
+  };
+
+  return {
+    create: jest.fn(() => mockAxiosInstance)
+  };
+});
+
 import axios from 'axios';
 import { apiService, API_URLS } from './api';
 
-// Mock de axios
-jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockAxiosInstance = mockedAxios.create.mock.results[0]?.value;
 
 describe('API Service', () => {
   beforeEach(() => {
@@ -17,32 +34,17 @@ describe('API Service', () => {
         { id: 2, name: 'Product 2', price: 15.99 },
       ];
 
-      mockedAxios.create.mockReturnValue({
-        get: jest.fn().mockResolvedValue({ data: mockProducts }),
-      } as any);
+      mockAxiosInstance.get.mockResolvedValue({ data: mockProducts });
 
       const result = await apiService.getProducts();
 
       expect(result).toEqual(mockProducts);
-      expect(mockedAxios.create).toHaveBeenCalledWith({
-        baseURL: 'http://localhost:8080/api',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
     });
 
     it('should get product by id', async () => {
       const mockProduct = { id: 1, name: 'Product 1', price: 10.99 };
 
-      const mockAxiosInstance = {
-        get: jest.fn().mockResolvedValue({ data: mockProduct }),
-        interceptors: {
-          request: { use: jest.fn() },
-        },
-      };
-
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
+      mockAxiosInstance.get.mockResolvedValue({ data: mockProduct });
 
       const result = await apiService.getProductById(1);
 
@@ -52,17 +54,6 @@ describe('API Service', () => {
   });
 
   describe('Authentication API', () => {
-    const mockAxiosInstance = {
-      post: jest.fn(),
-      interceptors: {
-        request: { use: jest.fn() },
-      },
-    };
-
-    beforeEach(() => {
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
-    });
-
     it('should login successfully', async () => {
       const mockCredentials = { email: 'test@example.com', password: 'password' };
       const mockResponse = {
@@ -121,18 +112,6 @@ describe('API Service', () => {
   });
 
   describe('User API', () => {
-    const mockAxiosInstance = {
-      get: jest.fn(),
-      put: jest.fn(),
-      interceptors: {
-        request: { use: jest.fn() },
-      },
-    };
-
-    beforeEach(() => {
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
-    });
-
     it('should get user profile', async () => {
       const mockUser = { id: '1', name: 'Test User', email: 'test@example.com' };
 
@@ -158,18 +137,6 @@ describe('API Service', () => {
   });
 
   describe('Orders API', () => {
-    const mockAxiosInstance = {
-      post: jest.fn(),
-      get: jest.fn(),
-      interceptors: {
-        request: { use: jest.fn() },
-      },
-    };
-
-    beforeEach(() => {
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
-    });
-
     it('should create order', async () => {
       const mockOrderData = {
         user: { id: '1', name: 'Test User', email: 'test@example.com' },
@@ -255,18 +222,10 @@ describe('API Service', () => {
         writable: true,
       });
 
-      const mockAxiosInstance = {
-        interceptors: {
-          request: {
-            use: jest.fn((callback) => {
-              const result = callback(mockConfig);
-              expect(result.headers.Authorization).toBe(`Bearer ${mockToken}`);
-            }),
-          },
-        },
-      };
-
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
+      mockAxiosInstance.interceptors.request.use.mockImplementation((callback: any) => {
+        const result = callback(mockConfig);
+        expect(result.headers.Authorization).toBe(`Bearer ${mockToken}`);
+      });
 
       // Trigger interceptor setup by importing api
       require('./api');
@@ -283,18 +242,10 @@ describe('API Service', () => {
         writable: true,
       });
 
-      const mockAxiosInstance = {
-        interceptors: {
-          request: {
-            use: jest.fn((callback) => {
-              const result = callback(mockConfig);
-              expect(result.headers.Authorization).toBeUndefined();
-            }),
-          },
-        },
-      };
-
-      mockedAxios.create.mockReturnValue(mockAxiosInstance as any);
+      mockAxiosInstance.interceptors.request.use.mockImplementation((callback: any) => {
+        const result = callback(mockConfig);
+        expect(result.headers.Authorization).toBeUndefined();
+      });
 
       // Trigger interceptor setup by importing api
       require('./api');

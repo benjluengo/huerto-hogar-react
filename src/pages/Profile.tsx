@@ -123,7 +123,7 @@ const Profile: React.FC = () => {
     );
   }
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <Container className="py-5">
         <Row className="justify-content-center">

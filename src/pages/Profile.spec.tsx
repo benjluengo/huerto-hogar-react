@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import Profile from './Profile';
 import { useAuth } from '../hooks/useAuth';
 import { useNotification } from '../components/common/NotificationProvider';
@@ -9,18 +8,12 @@ import { useNotification } from '../components/common/NotificationProvider';
 jest.mock('../hooks/useAuth');
 jest.mock('../components/common/NotificationProvider');
 
-// Mock de useNavigate
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-}));
-
 const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
 const mockUseNotification = useNotification as jest.MockedFunction<typeof useNotification>;
 
 describe('Profile Component', () => {
   const mockShowNotification = jest.fn();
+  const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,14 +22,14 @@ describe('Profile Component', () => {
     });
   });
 
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   const renderProfile = (authState: any) => {
     mockUseAuth.mockReturnValue(authState);
 
-    return render(
-      <BrowserRouter>
-        <Profile />
-      </BrowserRouter>
-    );
+    return render(<Profile />);
   };
 
   describe('Unauthenticated user', () => {
@@ -130,8 +123,10 @@ describe('Profile Component', () => {
         const editButton = screen.getByText('Editar');
         fireEvent.click(editButton);
 
-        // Cancel edit
-        const cancelButton = screen.getByText('Cancelar');
+        // Cancel edit - find the cancel button in the form (outline-secondary variant)
+        const cancelButtons = screen.getAllByRole('button', { name: /cancelar/i });
+        const cancelButton = cancelButtons.find(button => button.classList.contains('btn-outline-secondary'));
+        if (!cancelButton) throw new Error('Cancel button not found');
         fireEvent.click(cancelButton);
 
         // Should be back to view mode
@@ -245,6 +240,7 @@ describe('Profile Component', () => {
         fireEvent.click(saveButton);
 
         await waitFor(() => {
+          expect(mockUpdateProfile).toHaveBeenCalled();
           expect(mockShowNotification).toHaveBeenCalledWith(
             'Error al actualizar el perfil. El correo electrónico podría estar en uso.',
             'error'

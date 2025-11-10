@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
 // Mock de hooks y contextos
@@ -85,22 +84,14 @@ jest.mock('./pages/PurchaseSuccess', () => {
 
 describe('App Component', () => {
   it('should render without crashing', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Verificar que la aplicación se renderiza
     expect(screen.getByTestId('notification-provider')).toBeTruthy();
   });
 
   it('should render with all providers', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Verificar que todos los providers están presentes
     expect(screen.getByTestId('notification-provider')).toBeTruthy();
@@ -109,33 +100,21 @@ describe('App Component', () => {
   });
 
   it('should render Router with Routes', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Verificar que el router está configurado (aunque no podemos verificar rutas específicas sin navegación)
     expect(screen.getByTestId('notification-provider')).toBeTruthy();
   });
 
   it('should render home page by default', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Verificar que se renderiza la página de inicio por defecto
     expect(screen.getByTestId('home-page')).toBeTruthy();
   });
 
   it('should render products page when navigating to /products', () => {
-    render(
-      <MemoryRouter initialEntries={['/productos']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Esta prueba verifica que la estructura de rutas permite navegación
     // Para pruebas más específicas de rutas, se recomienda usar MemoryRouter
@@ -143,102 +122,62 @@ describe('App Component', () => {
   });
 
   it('should render login page when navigating to /login', () => {
-    render(
-      <MemoryRouter initialEntries={['/login']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('login-page')).toBeTruthy();
   });
 
   it('should render register page when navigating to /register', () => {
-    render(
-      <MemoryRouter initialEntries={['/registro']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('register-page')).toBeTruthy();
   });
 
   it('should render profile page when navigating to /profile', () => {
-    render(
-      <MemoryRouter initialEntries={['/perfil']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('profile-page')).toBeTruthy();
   });
 
   it('should render admin login page when navigating to /admin/login', () => {
-    render(
-      <MemoryRouter initialEntries={['/admin-login']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('admin-login-page')).toBeTruthy();
   });
 
   it('should render admin dashboard page when navigating to /admin/dashboard', () => {
-    render(
-      <MemoryRouter initialEntries={['/admin-dashboard']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('admin-dashboard-page')).toBeTruthy();
   });
 
   it('should render cart page when navigating to /cart', () => {
-    render(
-      <MemoryRouter initialEntries={['/carrito']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('cart-page')).toBeTruthy();
   });
 
   it('should render purchase success page when navigating to /purchase-success', () => {
-    render(
-      <MemoryRouter initialEntries={['/compra-exitosa']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('purchase-success-page')).toBeTruthy();
   });
 
   it('should render about page when navigating to /about', () => {
-    render(
-      <MemoryRouter initialEntries={['/nosotros']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('about-page')).toBeTruthy();
   });
 
   it('should render blog page when navigating to /blog', () => {
-    render(
-      <MemoryRouter initialEntries={['/blog']}>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     expect(screen.getByTestId('blog-page')).toBeTruthy();
   });
 
   it('should include Bootstrap CSS', () => {
     // Verificar que Bootstrap está incluido (esto se verifica indirectamente por la presencia del componente)
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // Si Bootstrap no estuviera incluido, podría causar errores de renderizado
     expect(screen.getByTestId('notification-provider')).toBeTruthy();
@@ -246,11 +185,7 @@ describe('App Component', () => {
 
   it('should include custom CSS', () => {
     // Verificar que el CSS personalizado está incluido
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    render(<App />);
 
     // La presencia del componente indica que el CSS se cargó correctamente
     expect(screen.getByTestId('notification-provider')).toBeTruthy();
